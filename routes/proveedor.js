@@ -22,6 +22,24 @@ app.get('/', (req, res, next) =>{
     });
 });
 
+app.get('/:id',(req, res, next)=>{
+
+    Proveedor.findById(req.params.id, (error, datos ) =>{
+        if(error){
+            return res.status(400).json({
+                ok: false,
+                mensaje: 'Error de conexión',
+                errores: error 
+            })
+        }
+
+        res.status(200).json({
+            ok: true,
+            proveedor: datos
+        })
+    });
+});
+
 
 app.post('/',(req, res)=>{
 
