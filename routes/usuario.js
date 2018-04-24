@@ -1,6 +1,7 @@
 var express = require('express');
 var bcryptjs = require('bcryptjs');
 var app = express();
+var proteccionhttp = require('../middleware/proteccionhttp');
 
 var Usuario = require('../models/usuario');
 
@@ -22,7 +23,7 @@ app.get('/', (req, res, next) =>{
 });
 
 
-app.post('/', (req,res)=>{
+app.post('/', proteccionhttp.checkToken, (req,res)=>{
     var body = req.body;
 
     var usuario = new Usuario({

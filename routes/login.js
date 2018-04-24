@@ -33,7 +33,7 @@ app.post('/', (req,res)=>{
             })
         }
 
-        var token = jsonwebtoken.sign({usuario: datos}, 'jffxtstzefhjf', {expiresIn: '1h'});
+        var token = jsonwebtoken.sign({usuario: datos}, 'jffxtstzefhjf', {expiresIn: 60});
 
         res.status(200).json({
             ok: true,

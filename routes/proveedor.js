@@ -2,6 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 
 var Proveedor = require('../models/proveedor');
+var proteccionhttp = require('../middleware/proteccionhttp');
 
 var app = express();
 
@@ -94,7 +95,7 @@ app.put('/:id', function(req, res, next){
     });
 })
 
-app.delete('/:id', function(req, res, next){
+app.delete('/:id', proteccionhttp.checkToken, function(req, res, next){
 
     Proveedor.findByIdAndRemove(req.params.id, function(err, datos){
         if(err){
