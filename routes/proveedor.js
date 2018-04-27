@@ -7,7 +7,11 @@ var proteccionhttp = require('../middleware/proteccionhttp');
 var app = express();
 
 app.get('/', (req, res, next) =>{
-    Proveedor.find({}).exec((err,datos)=>{
+
+    var tramo = req.query.tramo;
+    tramo = Number(tramo);
+
+    Proveedor.find({}).skip(tramo).limit(5).exec((err,datos)=>{
         if(err){
             return res.status(400).json({
                 ok: false,
@@ -16,9 +20,13 @@ app.get('/', (req, res, next) =>{
             })
         }
 
-        res.status(200).json({
-            ok: true,
-            proveedores: datos
+        Proveedor.count({},(err,totales)=>{
+            res.status(200).json({
+                ok: true,
+                proveedores: datos,
+                //totales en ECMAScript 6
+                totales: totales
+            })
         })
     });
 });

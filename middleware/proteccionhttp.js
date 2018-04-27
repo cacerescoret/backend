@@ -1,7 +1,6 @@
 var jsonwebtoken = require('jsonwebtoken');
 
 exports.checkToken = function(req, res, next){
-    
     var token = req.query.token;
 
     jsonwebtoken.verify(token, 'jffxtstzefhjf', (err, decoded)=>{
