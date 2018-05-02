@@ -22,6 +22,26 @@ app.get('/', (req, res, next) =>{
     });
 });
 
+app.get('/sesion/', (req, res, next) =>{
+
+    var nombre = req.query.nombre;
+
+    Usuario.find({nombre:nombre}).exec((err,datos)=>{
+        if(err){
+            return res.status(400).json({
+                ok: false,
+                mensaje: 'Error de conexión',
+                errores: err 
+            })
+        }
+        
+        res.status(200).json({
+            ok: true,
+            sesiones: datos[0].sesiones.reverse()
+        })
+    });
+});
+
 
 app.post('/', proteccionhttp.checkToken, (req,res)=>{
     var body = req.body;
@@ -80,6 +100,45 @@ app.put('/:id', (req, res, next)=>{
             res.status(200).json({
                 ok: true,
                 mensaje: 'Usuario actualizado correctamente'
+            })
+
+
+        })
+
+
+    })
+
+
+})
+
+app.put('/sesion/:id', (req, res, next)=>{
+
+    var id = req.params.id;
+    var body = req.body;
+
+    Usuario.findById(id, (err, usuario)=>{
+
+        if(err){
+            return res.status(500).json({
+                ok: false,
+                mensaje: 'Error de conexión'
+            })
+        }
+
+        usuario.sesiones.push(body);
+
+        usuario.save((err, usuarioModificado)=>{
+            if(err){
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: 'Error al actualizar el usuario',
+                    errores: err
+                })
+            }
+
+            res.status(200).json({
+                ok: true,
+                mensaje: 'Sesion creada'
             })
 
 

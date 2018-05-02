@@ -39,7 +39,8 @@ app.post('/', (req,res)=>{
             ok: true,
             token: token, //En ECMAScript 6 token
             nombre: datos.nombre,
-            rol: datos.rol
+            rol: datos.rol,
+            _id: datos._id
         })
 
     })

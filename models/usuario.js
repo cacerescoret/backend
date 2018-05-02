@@ -5,7 +5,8 @@ var UsuarioSchema = new mongoose.Schema({
     nombre: String,
     email: {type: String, unique: true},
     password: String,
-    rol: String
+    rol: String,
+    sesiones: Array
 })
 
 UsuarioSchema.plugin(unique, { message: 'Ya existe una cuenta con ese correo electrónico'});
