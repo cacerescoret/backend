@@ -7,7 +7,7 @@ var app = express();
 
 app.get('/', (req, res, next) => {
 
-    Presupuesto.find({}).exec((err, presupuestos)=>{
+    Presupuesto.find({}).sort({_id:-1}).exec((err, presupuestos)=>{
         if(err){
             return res.status(500).json({
                 ok: false,
@@ -46,16 +46,12 @@ app.post('/', (req, res)=>{
     var body = req.body;
 
     var presupuesto = new Presupuesto({
-        proveedor: body.proveedor,
-        cif: body.cif,
-        domicilio: body.domicilio,
+        cliente: body.cliente,
         fecha: body.fecha,
-        concepto: body.concepto,
-        base: body.base,
-        retencion: body.retencion,
+        items: body.items,
+        suma: body.suma,
         tipo: body.tipo,
-        irpf: body.irpf,
-        importe: body.importe,
+        importeIVA: body.importeIVA,
         total: body.total
     });
 
