@@ -6,6 +6,7 @@ autoIncrement.initialize(connection);
 
 var PresupuestoSchema = new mongoose.Schema({
     cliente: String,
+    cif: String,
     fecha: String,
     items: Array,
     suma: Number,
